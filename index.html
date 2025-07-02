@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure-Reviewed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pure-Reviewed</h1>
+            <p>Apply context-aware ambiguity and strategic noise to protect sensitive content</p>
+        </header>
+
+        <div class="input-section">
+            <div class="context-input">
+                <h3>Context</h3>
+                <textarea id="context-text" placeholder="Describe what you're writing for (e.g., 'NSF grant proposal', 'art exhibition proposal for Beijing gallery', 'academic paper on sensitive political topics', etc.)"></textarea>
+            </div>
+            
+            <div class="original-input">
+                <h3>Original Text</h3>
+                <textarea id="input-text" placeholder="Paste your original text here..."></textarea>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="sliders-container">
+                <div class="slider-group">
+                    <label for="ambiguity-slider">Ambiguity Level:</label>
+                    <input type="range" id="ambiguity-slider" min="0" max="10" value="5" class="slider">
+                    <div class="slider-labels">
+                        <span>Direct</span>
+                        <span>Moderate</span>
+                        <span>Highly Ambiguous</span>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <label for="noise-slider">Noise Level:</label>
+                    <input type="range" id="noise-slider" min="0" max="10" value="3" class="slider">
+                    <div class="slider-labels">
+                        <span>No Masking</span>
+                        <span>Some Noise</span>
+                        <span>Heavy Masking</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="process-btn" class="process-btn">Process Text</button>
+        </div>
+
+        <div class="output-section">
+            <div class="text-section">
+                <h3>Processed Text</h3>
+                <textarea id="output-text" placeholder="Refined text will appear here..." readonly></textarea>
+            </div>
+            
+            <div class="modification-summary" id="modification-summary">
+                <h4>Modifications Applied:</h4>
+                <p>Process your text to see how it was modified...</p>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processing your text...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
