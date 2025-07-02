@@ -9,66 +9,53 @@
 <body>
     <div class="container">
         <header>
-            <h1>Pure-Reviewed</h1>
-            <p>Apply context-aware ambiguity and strategic noise to protect sensitive content</p>
+            <h1>Pu<span class="redacted">{re}</span>viewed</h1>
+            <p class="tagline">Obscure <span class="redacted-bar">████</span> clarity. <span class="redacted-bar">█</span> Secure meaning <span class="redacted-bar">████</span></p>
         </header>
 
-        <div class="input-section">
-            <div class="context-input">
-                <h3>Context</h3>
-                <textarea id="context-text" placeholder="Describe what you're writing for (e.g., 'NSF grant proposal', 'art exhibition proposal for Beijing gallery', 'academic paper on sensitive political topics', etc.)"></textarea>
+        <div class="context-section">
+            <label>I want to apply for</label>
+            <input type="text" id="context-input" placeholder="American grant" />
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <textarea id="input-text" placeholder="Input your proposal..."></textarea>
             </div>
-            
-            <div class="original-input">
-                <h3>Original Text</h3>
-                <textarea id="input-text" placeholder="Paste your original text here..."></textarea>
+
+            <div class="output-section">
+                <label class="output-label">Final output</label>
+                <textarea id="output-text" readonly></textarea>
             </div>
         </div>
 
-        <div class="controls">
-            <div class="sliders-container">
+        <div class="controls-section">
+            <div class="sliders">
                 <div class="slider-group">
-                    <label for="ambiguity-slider">Ambiguity Level:</label>
-                    <input type="range" id="ambiguity-slider" min="0" max="10" value="5" class="slider">
-                    <div class="slider-labels">
-                        <span>Direct</span>
-                        <span>Moderate</span>
-                        <span>Highly Ambiguous</span>
-                    </div>
+                    <label class="slider-label">Ambiguity</label>
+                    <input type="range" id="ambiguity-slider" min="0" max="10" value="0" />
+                    <span class="slider-value" id="ambiguity-value">0</span>
                 </div>
-                
+
                 <div class="slider-group">
-                    <label for="noise-slider">Noise Level:</label>
-                    <input type="range" id="noise-slider" min="0" max="10" value="3" class="slider">
-                    <div class="slider-labels">
-                        <span>No Masking</span>
-                        <span>Some Noise</span>
-                        <span>Heavy Masking</span>
-                    </div>
+                    <label class="slider-label glitch">N.o..i.s...e</label>
+                    <input type="range" id="noise-slider" min="0" max="10" value="10" />
+                    <span class="slider-value" id="noise-value">10</span>
                 </div>
             </div>
-            
-            <button id="process-btn" class="process-btn">Process Text</button>
-        </div>
 
-        <div class="output-section">
-            <div class="text-section">
-                <h3>Processed Text</h3>
-                <textarea id="output-text" placeholder="Refined text will appear here..." readonly></textarea>
-            </div>
-            
-            <div class="modification-summary" id="modification-summary">
-                <h4>Modifications Applied:</h4>
-                <p>Process your text to see how it was modified...</p>
-            </div>
-        </div>
+            <button id="convert-btn" class="convert-btn">convert</button>
 
-        <div class="loading" id="loading" style="display: none;">
-            <div class="spinner"></div>
-            <p>Processing your text...</p>
+            <div class="modification-section">
+                <h3>Modification Applied:</h3>
+                <div id="modification-summary">
+                    Given that the ambiguity level is 0, no changes were made to the original text to make it more vague or indirect. However, considering the noise level of 10, substantial modifications were made to align the text with potential censorship expectations. The language was adjusted to emphasize institutional priorities, evidence-based approaches, and collaborative frameworks, while preserving the original intent and meaning. The word count was maintained within the allowed range.
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
+</html> 
 </html> 

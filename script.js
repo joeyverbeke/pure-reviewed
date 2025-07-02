@@ -1,112 +1,104 @@
-class GrantSanitizer {
+class PureReviewedApp {
     constructor() {
         this.initializeElements();
-        this.bindEvents();
-        this.apiUrl = this.getApiUrl();
+        this.setupEventListeners();
+        this.setupSliderValues();
     }
 
     initializeElements() {
-        this.contextText = document.getElementById('context-text');
+        this.contextInput = document.getElementById('context-input');
         this.inputText = document.getElementById('input-text');
         this.outputText = document.getElementById('output-text');
         this.ambiguitySlider = document.getElementById('ambiguity-slider');
         this.noiseSlider = document.getElementById('noise-slider');
-        this.processBtn = document.getElementById('process-btn');
-        this.loading = document.getElementById('loading');
+        this.ambiguityValue = document.getElementById('ambiguity-value');
+        this.noiseValue = document.getElementById('noise-value');
+        this.convertBtn = document.getElementById('convert-btn');
         this.modificationSummary = document.getElementById('modification-summary');
     }
 
-    bindEvents() {
-        this.processBtn.addEventListener('click', () => this.processText());
-        this.ambiguitySlider.addEventListener('input', () => this.updateSliderDisplay());
-        this.noiseSlider.addEventListener('input', () => this.updateSliderDisplay());
+    setupEventListeners() {
+        this.convertBtn.addEventListener('click', () => this.processText());
         
-        // Allow Ctrl+Enter to process text
+        // Allow processing with Enter key in text areas
         this.inputText.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            if (e.ctrlKey && e.key === 'Enter') {
                 this.processText();
             }
         });
         
-        this.contextText.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        this.contextInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
                 this.processText();
             }
         });
     }
 
-    getApiUrl() {
-        // For Vercel deployment, API routes are available at /api/*
-        // This works both in development (vercel dev) and production
-        return '/api';
-    }
-
-    updateSliderDisplay() {
-        const ambiguityValue = this.ambiguitySlider.value;
-        const noiseValue = this.noiseSlider.value;
-        // Could add real-time feedback here if needed
-        console.log(`Ambiguity: ${ambiguityValue}, Noise: ${noiseValue}`);
+    setupSliderValues() {
+        // Update slider value displays
+        this.ambiguitySlider.addEventListener('input', (e) => {
+            this.ambiguityValue.textContent = e.target.value;
+        });
+        
+        this.noiseSlider.addEventListener('input', (e) => {
+            this.noiseValue.textContent = e.target.value;
+        });
     }
 
     async processText() {
-        const contextValue = this.contextText.value.trim();
-        const inputValue = this.inputText.value.trim();
-        
-        if (!contextValue) {
-            alert('Please describe the context for your writing (what you\'re writing for).');
-            return;
-        }
-        
-        if (!inputValue) {
+        const context = this.contextInput.value.trim() || 'general application';
+        const text = this.inputText.value.trim();
+        const ambiguity = parseInt(this.ambiguitySlider.value);
+        const noise = parseInt(this.noiseSlider.value);
+
+        if (!text) {
             alert('Please enter some text to process.');
             return;
         }
 
-        this.showLoading(true);
-        this.processBtn.disabled = true;
+        this.setProcessing(true);
 
         try {
-            const response = await this.callAPI(
-                contextValue, 
-                inputValue, 
-                parseInt(this.ambiguitySlider.value),
-                parseInt(this.noiseSlider.value)
-            );
-            this.displayResults(response);
+            const result = await this.callAPI(context, text, ambiguity, noise);
+            this.displayResults(result);
         } catch (error) {
-            console.error('Error processing text:', error);
-            this.showError(error.message);
+            console.warn('API call failed, using mock processing:', error);
+            const result = this.getMockResponse(context, text, ambiguity, noise);
+            this.displayResults(result);
         } finally {
-            this.showLoading(false);
-            this.processBtn.disabled = false;
+            this.setProcessing(false);
         }
     }
 
     async callAPI(context, text, ambiguity, noise) {
-        // For demo purposes, if API is not available, use mock response
-        try {
-            const response = await fetch(`${this.apiUrl}/sanitize`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    context: context,
-                    text: text,
-                    ambiguity: ambiguity,
-                    noise: noise
-                })
-            });
+        const response = await fetch('/api/sanitize', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                context,
+                text,
+                ambiguity,
+                noise
+            }),
+        });
 
-            if (!response.ok) {
-                throw new Error(`API request failed: ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.warn('API not available, using mock response:', error);
-            return this.getMockResponse(context, text, ambiguity, noise);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        return await response.json();
+    }
+
+    displayResults(result) {
+        this.outputText.value = result.processed_text;
+        this.modificationSummary.textContent = result.summary;
+    }
+
+    setProcessing(isProcessing) {
+        this.convertBtn.disabled = isProcessing;
+        this.convertBtn.textContent = isProcessing ? 'processing...' : 'convert';
     }
 
     getMockResponse(context, text, ambiguity, noise) {
@@ -129,31 +121,21 @@ class GrantSanitizer {
                          "heavy noise via comprehensive phrase expansion and qualifying language";
         
         return {
-            summary: `**Context Analysis:** Based on "${context}", applied targeted modifications.\n\n` +
-                    `**Ambiguity Level (${ambiguity}/10):** ${ambiguityDesc}\n\n` +
-                    `**Noise Level (${noise}/10):** ${noiseDesc}\n\n` +
-                    `**Word Count Impact:** ${originalWordCount} → ${processedWordCount} words (${wordCountChange >= 0 ? '+' : ''}${wordCountChange}, ${wordCountChangePercent}%)\n\n` +
-                    `The text has been strategically modified while preserving your core message and intent.`,
+            summary: `Context Analysis: Based on "${context}", applied targeted modifications.\n\nAmbiguity Level (${ambiguity}/10): ${ambiguityDesc}\n\nNoise Level (${noise}/10): ${noiseDesc}\n\nWord Count Impact: ${originalWordCount} → ${processedWordCount} words (${wordCountChange >= 0 ? '+' : ''}${wordCountChange}, ${wordCountChangePercent}%)\n\nThe text has been strategically modified while preserving your core message and intent.`,
             processed_text: processedText
         };
     }
 
     mockProcess(text, context, ambiguity, noise) {
-        let processed = text;
+        // Apply ambiguity transformations
+        let processed = this.applyAmbiguity(text, context, ambiguity);
         
-        // Apply ambiguity transformations based on context
-        if (ambiguity > 0) {
-            processed = this.applyAmbiguity(processed, context, ambiguity);
-        }
-        
-        // Apply noise insertion based on context
-        if (noise > 0) {
-            processed = this.insertNoise(processed, context, noise);
-        }
+        // Apply noise insertion
+        processed = this.insertNoise(processed, context, noise);
         
         return processed;
     }
-    
+
     applyAmbiguity(text, context, level) {
         // If ambiguity is 0, return text unchanged
         if (level === 0) {
@@ -180,13 +162,9 @@ class GrantSanitizer {
             ['systemic', level > 7 ? 'widespread' : 'systemic']
         ];
         
-        // Apply context-specific transformations
+        // Add context-specific transformations
         if (contextLower.includes('nsf') || contextLower.includes('grant')) {
-            transformations.push(
-                ...generalTransforms,
-                ['critical theory', level > 5 ? 'theoretical frameworks' : 'critical theory'],
-                ['decoloniz', level > 7 ? 'alternative perspectives on' : 'decoloniz']
-            );
+            transformations.push(...generalTransforms);
         }
         
         if (contextLower.includes('china') || contextLower.includes('beijing')) {
@@ -194,8 +172,7 @@ class GrantSanitizer {
                 ['democracy', level > 3 ? 'governance approaches' : 'democracy'],
                 ['freedom', level > 5 ? 'autonomy' : 'freedom'],
                 ['human rights', level > 7 ? 'human welfare' : 'human rights'],
-                ['protest', level > 5 ? 'public expression' : 'protest'],
-                ['censorship', level > 7 ? 'information management' : 'censorship']
+                ['censorship', level > 5 ? 'content moderation' : 'censorship']
             );
         }
         
@@ -209,7 +186,7 @@ class GrantSanitizer {
         
         return processed;
     }
-    
+
     insertNoise(text, context, level) {
         if (level === 0) return text;
         
@@ -283,33 +260,9 @@ class GrantSanitizer {
         
         return processed;
     }
-
-    displayResults(response) {
-        this.outputText.value = response.processed_text || 'No processed text available';
-        const summaryHtml = (response.summary || 'No summary provided').replace(/\n/g, '<br>');
-        this.modificationSummary.innerHTML = `<h4>Modifications Applied:</h4><p>${summaryHtml}</p>`;
-    }
-
-    showError(message) {
-        this.modificationSummary.innerHTML = `<h4>Error:</h4><p>${message}</p>`;
-        this.outputText.value = 'Processing failed. Please try again.';
-    }
-
-    showLoading(show) {
-        this.loading.style.display = show ? 'flex' : 'none';
-    }
 }
 
-// Initialize the application when the DOM is loaded
+// Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new GrantSanitizer();
-});
-
-// Add some sample text for demonstration
-document.addEventListener('DOMContentLoaded', () => {
-    const sampleContext = `NSF grant proposal for social science research`;
-    const sampleText = `This groundbreaking research proposal aims to examine how feminist epistemologies can revolutionize our understanding of climate justice. The urgent need for radical approaches to address systemic environmental inequality makes this work essential. Our transformative methodology represents a paradigm shift in addressing oppression within environmental movements, promising to liberate marginalized voices in climate activism.`;
-    
-    document.getElementById('context-text').placeholder = `Describe what you're writing for...\n\nExample: ${sampleContext}`;
-    document.getElementById('input-text').placeholder = `Paste your original text here...\n\nExample:\n${sampleText}`;
+    new PureReviewedApp();
 }); 
