@@ -10,6 +10,7 @@ body {
     color: black;
     line-height: 1.4;
     padding: 20px;
+    font-size: clamp(14px, 1.2vw, 18px);
 }
 
 .container {
@@ -24,7 +25,7 @@ header {
 }
 
 header h1 {
-    font-size: 36px;
+    font-size: clamp(20px, 3vw, 36px);
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 2px;
@@ -38,7 +39,7 @@ header h1 {
 }
 
 .tagline {
-    font-size: 20px;
+    font-size: clamp(14px, 1.6vw, 20px);
     margin-bottom: 20px;
 }
 
@@ -54,7 +55,7 @@ header h1 {
 }
 
 .context-section label {
-    font-size: 16px;
+    font-size: 1.6em;
     margin-right: 10px;
 }
 
@@ -63,10 +64,15 @@ header h1 {
     color: white;
     border: none;
     padding: 8px 12px;
-    font-family: 'DM', monospace;
-    font-size: 16px;
+    font-size: 1.4em;
     border-radius: 2px;
     min-width: 150px;
+    font-family: inherit; /* Use body font */
+}
+
+#context-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #ccc;
 }
 
 #context-input::placeholder {
@@ -79,6 +85,7 @@ header h1 {
     gap: 40px;
     align-items: flex-start;
     margin-top: 40px;
+    margin-bottom: 100px;
 }
 
 .left-section,
@@ -100,7 +107,7 @@ textarea {
     padding: 20px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 1em;
     resize: vertical;
     background-color: #fafafa;
 }
@@ -115,6 +122,7 @@ textarea:focus {
     color: #333;
 }
 
+/* Bottom layout (controls + modification) */
 .bottom-section {
     display: flex;
     gap: 40px;
@@ -126,54 +134,41 @@ textarea:focus {
 .controls-section {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    gap: 30px;
-}
-
-.sliders {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
-    min-width: 200px;
-}
-
-.slider-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.slider-label-1 {
-    text-shadow: 0px -8px 0px rgba(255, 255, 255, 0.25), 0px 8px 0px rgba(255, 255, 255, 0.25), 0px -4px 0px rgba(255, 255, 255, 0.50), 0px 4px 0px rgba(255, 255, 255, 0.50);
-    font-size: 14px;
-    font-weight: bold;
-    background-color: black;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 2px;
-    text-align: center;
-    letter-spacing: 2px;
-
-}
-
-.slider-label-2 {
-    font-size: 14px;
-    font-weight: bold;
-    background-color: black;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 2px;
-    text-align: center;
-    letter-spacing: 2px;
-}
-
-input[type="range"] {
     width: 100%;
+    max-width: 700px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.slider-label{
+    font-size: 0.9em;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.slider-label.styled{
+    letter-spacing: 2px;
+    text-shadow: 0px -8px 0px rgba(255, 255, 255, 0.25), 0px 8px 0px rgba(255, 255, 255, 0.25), 0px -4px 0px rgba(255, 255, 255, 0.50), 0px 4px 0px rgba(255, 255, 255, 0.50);
+}
+
+/* Sliders */
+input[type="range"] {
+    flex: 1;
     height: 6px;
-    background: #ddd;
+    background: #ccc;
     border-radius: 3px;
-    outline: none;
     -webkit-appearance: none;
+    appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -190,28 +185,71 @@ input[type="range"]::-moz-range-thumb {
     height: 20px;
     background: black;
     border-radius: 50%;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
 }
 
-.slider-value {
-    font-size: 12px;
-    text-align: center;
-    font-weight: bold;
+/* Virus toggle */
+.virus-row {
+    align-items: flex-start;
+}
+
+.virus-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.virus-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  border: 2px solid black;
+  aspect-ratio: 1 / 1; /* guarantees a square */
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  background: white;
+  cursor: pointer;
+}
+
+.virus-toggle input[type="checkbox"]:checked::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: black;
+  border-radius: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.virus-label {
+    font-size: 0.85em;
+    color: black;
 }
 
 /* Convert button */
+.convert-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
 .convert-btn {
+    letter-spacing: 2px;
     background-color: black;
     color: white;
     border: none;
     padding: 15px 40px;
-    font-size: 16px;
-    font-family: 'DM', monospace;
+    font-size: 1em;
+    font-weight: bold;
     border-radius: 2px;
     cursor: pointer;
-    align-self: right;
-    margin-top: 20px;
+    text-transform: lowercase;
+    font-family: inherit; /* Use body font */
 }
 
 .convert-btn:hover {
@@ -228,17 +266,18 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .modification-section h3 {
-    font-size: 16px;
+    letter-spacing: 1px;
+    font-size: 1em;
     font-weight: bold;
     margin-bottom: 10px;
-    color: rgb(0, 0, 0);
+    color: black;
     padding: 8px 12px;
     border-radius: 2px;
     width: fit-content;
 }
 
 #modification-summary {
-    font-size: 12px;
+    font-size: 0.85em;
     line-height: 1.5;
     color: #444;
     background-color: #f9f9f9;
@@ -247,28 +286,72 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid #eee;
 }
 
-/* Responsive design */
+.faq-section {
+  margin-top: 80px;
+  line-height: 1.7;
+}
+
+#qa-header {
+  text-align: center;
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.qa-item {
+  margin-bottom: 40px;
+}
+
+.question {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.question-text {
+  white-space: nowrap;
+}
+
+.question .black-bar {
+  display: inline-block;
+  background-color: black;
+  width: 100%;
+  height: 14px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.answer {
+  color: black;
+  font-size: 0.9em;
+}
+
+.highlighted {
+  background-color: black;
+  color: white;
+  padding: 0 6px;
+  border-radius: 2px;
+}
+
+
+/* Responsive */
 @media (max-width: 768px) {
-    .main-content {
+    .main-body,
+    .bottom-section {
         flex-direction: column;
         gap: 20px;
     }
-    
-    .controls-section {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .sliders {
-        flex-direction: row;
-        gap: 20px;
-    }
-    
-    header h1 {
-        font-size: 36px;
-    }
-    
+
     textarea {
         height: 200px;
     }
-} 
+
+    header h1 {
+        font-size: clamp(24px, 6vw, 32px);
+    }
+}

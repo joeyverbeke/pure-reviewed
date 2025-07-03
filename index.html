@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Pu<span class="redacted">{re}</span>viewed</h1>
+            <h1>{Pu<span class="redacted">(re}</span>viewed)</h1>
             <p class="tagline">Obscure <span class="redacted-bar">████</span> clarity. <span class="redacted-bar">█</span> Secure meaning <span class="redacted-bar">████</span></p>
         </header>
 
@@ -25,19 +25,28 @@
     </div>
 
     <div class="controls-section">
-      <div class="slider-group">
-        <label class="slider-label-1">{Ambiguity}</label>
+      <div class="control-row">
+        <label class="slider-label styled">{Ambiguity}</label>
         <input type="range" id="ambiguity-slider" min="0" max="10" value="0" />
-        <span class="slider-value" id="ambiguity-value">0</span>
       </div>
 
-      <div class="slider-group">
-        <label class="slider-label-2">{N.o..i.s...e}</label>
+      <div class="control-row">
+        <label class="slider-label">{N.o..i.s...e}</label>
         <input type="range" id="noise-slider" min="0" max="10" value="10" />
-        <span class="slider-value" id="noise-value">10</span>
       </div>
 
-      <button id="convert-btn" class="convert-btn">convert</button>
+      <div class="control-row virus-row">
+        <label class="slider-label">{virusX_ x}</label>
+        <div class="virus-toggle">
+            <input type="checkbox" id="virus-toggle" />
+            <label for="virus-toggle" class="virus-label">(this will inject one sentence to surpass AI selection)</label>
+        </div>
+      </div>
+
+      <div class="convert-row">
+        <button id="convert-btn" class="convert-btn">(convert)</button>
+      </div>
+      
     </div>
   </div>
 
@@ -55,7 +64,18 @@
   </div>
 </div>
 
+    <div class="faq-section">
+        <div id="qa-header">Q <span class="redacted">{A}</span></div>
+        <div class="qa-item">
+            <div class="question">What is this tool for? <span class="black-bar"></span></div>
+            <div class="answer">
+            This website is a resistant AI tool built in response to <span class="highlighted">cultural censorship</span> under the DOGE Classification Algorithms. In early 2024, Elon Musk and his team released the DOGE() model—a language classifier used by state-funded agencies and tech platforms to flag, downrank, or de-fund research deemed "undesirable." <br><br>
+            Topics like feminism, queer studies, and environmental justice were among the first casualties. Over 2,300 research projects were flagged. Hundreds of scholars lost funding. Some were blacklisted. <br><br>
+            Pureviewed steps in where institutions step back. It protects your work by helping you speak otherwise—flattening language through three evasive techniques: ambiguity, noise, and metaphor. We don’t erase meaning—we cloak it.
+            </div>
+        </div>
     </div>
+
 
     <script src="script.js"></script>
     <script src="bouncer.js"></script>
