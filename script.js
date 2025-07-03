@@ -15,6 +15,7 @@ class PureReviewedApp {
         this.noiseValue = document.getElementById('noise-value');
         this.convertBtn = document.getElementById('convert-btn');
         this.modificationSummary = document.getElementById('modification-summary');
+        this.virusToggle = document.getElementById('virus-toggle');
     }
 
     setupEventListeners() {
@@ -50,6 +51,8 @@ class PureReviewedApp {
         const text = this.inputText.value.trim();
         const ambiguity = parseInt(this.ambiguitySlider.value);
         const noise = parseInt(this.noiseSlider.value);
+        const virusEnabled = this.virusToggle?.checked || false;
+
 
         if (!text) {
             alert('Please enter some text to process.');
@@ -59,18 +62,18 @@ class PureReviewedApp {
         this.setProcessing(true);
 
         try {
-            const result = await this.callAPI(context, text, ambiguity, noise);
+            const result = await this.callAPI(context, text, ambiguity, noise, virusEnabled);
             this.displayResults(result);
         } catch (error) {
             console.warn('API call failed, using mock processing:', error);
-            const result = this.getMockResponse(context, text, ambiguity, noise);
+            const result = this.getMockResponse(context, text, ambiguity, noise, virusEnabled);
             this.displayResults(result);
         } finally {
             this.setProcessing(false);
         }
     }
 
-    async callAPI(context, text, ambiguity, noise) {
+    async callAPI(context, text, ambiguity, noise, virusEnabled) {
         const response = await fetch('/api/sanitize', {
             method: 'POST',
             headers: {
@@ -80,7 +83,8 @@ class PureReviewedApp {
                 context,
                 text,
                 ambiguity,
-                noise
+                noise,
+                virusEnabled
             }),
         });
 
@@ -101,7 +105,7 @@ class PureReviewedApp {
         this.convertBtn.textContent = isProcessing ? 'processing...' : 'convert';
     }
 
-    getMockResponse(context, text, ambiguity, noise) {
+    getMockResponse(context, text, ambiguity, noise, virusEnabled = false) {
         // Mock response for when API is not available
         const processedText = this.mockProcess(text, context, ambiguity, noise);
         
