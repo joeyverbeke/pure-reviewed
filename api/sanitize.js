@@ -1,9 +1,11 @@
 import OpenAI from 'openai';
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+function getOpenAIClient() {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY is missing.');
+  }
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+}
 
 class GrantSanitizer {
   constructor() {
@@ -89,7 +91,7 @@ MODIFIED TEXT:
       if (!process.env.OPENAI_API_KEY) {
         return this.fallbackProcessing(context, text, ambiguity, noise);
       }
-      
+      const openai = getOpenAIClient();
       const response = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
@@ -99,10 +101,8 @@ MODIFIED TEXT:
         max_tokens: 3000,
         temperature: 0.4
       });
-      
       const content = response.choices[0].message.content;
       return this.parseResponse(content);
-      
     } catch (error) {
       console.error('OpenAI API error:', error);
       return this.fallbackProcessing(context, text, ambiguity, noise);
