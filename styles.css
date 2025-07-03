@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Courier New', monospace;
+    font-family: 'DM', monospace;
     background-color: white;
     color: black;
     line-height: 1.4;
@@ -24,7 +24,7 @@ header {
 }
 
 header h1 {
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 2px;
@@ -38,12 +38,11 @@ header h1 {
 }
 
 .tagline {
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 20px;
 }
 
 .redacted-bar {
-    background-color: black;
     color: black;
     padding: 0 2px;
 }
@@ -64,7 +63,7 @@ header h1 {
     color: white;
     border: none;
     padding: 8px 12px;
-    font-family: 'Courier New', monospace;
+    font-family: 'DM', monospace;
     font-size: 16px;
     border-radius: 2px;
     min-width: 150px;
@@ -75,23 +74,24 @@ header h1 {
 }
 
 /* Main content layout */
-.main-content {
+.main-body {
     display: flex;
     gap: 40px;
-    margin-bottom: 40px;
     align-items: flex-start;
+    margin-top: 40px;
+}
+
+.left-section,
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .input-section,
 .output-section {
     flex: 1;
-}
-
-.output-label {
-    display: block;
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 8px;
 }
 
 textarea {
@@ -100,7 +100,6 @@ textarea {
     padding: 20px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-family: 'Courier New', monospace;
     font-size: 14px;
     resize: vertical;
     background-color: #fafafa;
@@ -116,11 +115,19 @@ textarea:focus {
     color: #333;
 }
 
+.bottom-section {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    align-items: flex-start;
+}
+
 /* Controls section */
 .controls-section {
     display: flex;
-    align-items: flex-start;
-    gap: 40px;
+    flex-direction: column;
+    flex: 1;
+    gap: 30px;
 }
 
 .sliders {
@@ -136,7 +143,8 @@ textarea:focus {
     gap: 8px;
 }
 
-.slider-label {
+.slider-label-1 {
+    text-shadow: 0px -8px 0px rgba(255, 255, 255, 0.25), 0px 8px 0px rgba(255, 255, 255, 0.25), 0px -4px 0px rgba(255, 255, 255, 0.50), 0px 4px 0px rgba(255, 255, 255, 0.50);
     font-size: 14px;
     font-weight: bold;
     background-color: black;
@@ -144,10 +152,18 @@ textarea:focus {
     padding: 6px 12px;
     border-radius: 2px;
     text-align: center;
-    width: fit-content;
+    letter-spacing: 2px;
+
 }
 
-.slider-label.glitch {
+.slider-label-2 {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 2px;
+    text-align: center;
     letter-spacing: 2px;
 }
 
@@ -190,13 +206,11 @@ input[type="range"]::-moz-range-thumb {
     color: white;
     border: none;
     padding: 15px 40px;
-    font-family: 'Courier New', monospace;
     font-size: 16px;
-    font-weight: bold;
+    font-family: 'DM', monospace;
     border-radius: 2px;
     cursor: pointer;
-    text-transform: lowercase;
-    align-self: flex-start;
+    align-self: right;
     margin-top: 20px;
 }
 
@@ -211,15 +225,13 @@ input[type="range"]::-moz-range-thumb {
 /* Modification section */
 .modification-section {
     flex: 1;
-    max-width: 400px;
 }
 
 .modification-section h3 {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
-    background-color: black;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 8px 12px;
     border-radius: 2px;
     width: fit-content;

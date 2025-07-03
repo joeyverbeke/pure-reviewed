@@ -18,44 +18,47 @@
             <input type="text" id="context-input" placeholder="American grant" />
         </div>
 
-        <div class="main-content">
-            <div class="input-section">
-                <textarea id="input-text" placeholder="Input your proposal..."></textarea>
-            </div>
+        <div class="main-body">
+  <div class="left-section">
+    <div class="input-section">
+      <textarea id="input-text" placeholder="Input your proposal..."></textarea>
+    </div>
 
-            <div class="output-section">
-                <label class="output-label">Final output</label>
-                <textarea id="output-text" readonly></textarea>
-            </div>
-        </div>
+    <div class="controls-section">
+      <div class="slider-group">
+        <label class="slider-label-1">{Ambiguity}</label>
+        <input type="range" id="ambiguity-slider" min="0" max="10" value="0" />
+        <span class="slider-value" id="ambiguity-value">0</span>
+      </div>
 
-        <div class="controls-section">
-            <div class="sliders">
-                <div class="slider-group">
-                    <label class="slider-label">Ambiguity</label>
-                    <input type="range" id="ambiguity-slider" min="0" max="10" value="0" />
-                    <span class="slider-value" id="ambiguity-value">0</span>
-                </div>
+      <div class="slider-group">
+        <label class="slider-label-2">{N.o..i.s...e}</label>
+        <input type="range" id="noise-slider" min="0" max="10" value="10" />
+        <span class="slider-value" id="noise-value">10</span>
+      </div>
 
-                <div class="slider-group">
-                    <label class="slider-label glitch">N.o..i.s...e</label>
-                    <input type="range" id="noise-slider" min="0" max="10" value="10" />
-                    <span class="slider-value" id="noise-value">10</span>
-                </div>
-            </div>
+      <button id="convert-btn" class="convert-btn">convert</button>
+    </div>
+  </div>
 
-            <button id="convert-btn" class="convert-btn">convert</button>
+  <div class="right-section">
+    <div class="output-section">
+      <textarea id="output-text" readonly placeholder="Final result here"></textarea>
+    </div>
 
-            <div class="modification-section">
-                <h3>Modification Applied:</h3>
-                <div id="modification-summary">
-                    Given that the ambiguity level is 0, no changes were made to the original text to make it more vague or indirect. However, considering the noise level of 10, substantial modifications were made to align the text with potential censorship expectations. The language was adjusted to emphasize institutional priorities, evidence-based approaches, and collaborative frameworks, while preserving the original intent and meaning. The word count was maintained within the allowed range.
-                </div>
-            </div>
-        </div>
+    <div class="modification-section">
+      <h3>Modification Applied:</h3>
+      <div id="modification-summary">
+        Given that the ambiguity level is 0, no changes were made to the original text...
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
 
     <script src="script.js"></script>
+    <script src="bouncer.js"></script>
 </body>
 </html> 
 </html> 
