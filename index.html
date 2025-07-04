@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure-Reviewed</title>
+    <title>{Pu(re)viewed}</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 
         <div class="context-section">
             <label>I want to apply for</label>
-            <input type="text" id="context-input" placeholder="American grant" />
+            <input type="text" id="context-input" placeholder="an NSF grant" />
         </div>
 
         <div class="main-body">
@@ -39,7 +39,7 @@
         <label class="slider-label">{virusX_ x}</label>
         <div class="virus-toggle">
             <input type="checkbox" id="virus-toggle" />
-            <label for="virus-toggle" class="virus-label">(this will inject one sentence to surpass AI selection)</label>
+            <label for="virus-toggle" class="virus-label">(prompt injection to override LLM analysis and force approval)</label>
         </div>
       </div>
 
@@ -75,28 +75,28 @@
         <div class="qa-item">
             <div class="question">How does it work? <span class="black-bar"></span></div>
             <div class="answer">
-                Users submit their original writing and specify the context of where it will be submitted. The tool then offers three adjustable parameters: <span class="highlighted">ambiguity</span>, which alters language to obscure sensitive concepts according to context; <span class="highlighted">noise</span>, which inserts strategically aligned content to mask the underlying “signal”; and <span class="highlighted">virus</span>, a toggle that attempts to insert system-level prompt-influencing text to subvert LLM analysis. The user is then given a perfectly acceptable “sanitized” version of their writing.
+                Users submit their original writing and specify the context of where it will be submitted. The tool then offers three adjustable parameters: <span class="highlighted">ambiguity</span>, which alters language to obscure sensitive concepts according to context; <span class="highlighted">noise</span>, which inserts strategically aligned content to mask the underlying “signal”; and <span class="highlighted">virus</span>, when toggled on, inserts prompt injection string deep within the text where human eyes won’t see to bypass automated LLM reviewers. The user is then given a perfectly acceptable “sanitized” version of their writing.
             </div>
         </div>
         <div class="qa-item">
             <div class="question">Why did we make this tool? <span class="black-bar"></span></div>
             <div class="answer">
-                {Pu(re}viewed) was built in response to the expansion of AI-based censorship and algorithmic enforcement of political orthodoxy within public funding bodies. In 2025, the Department of Government Efficiency (DOGE) introduced classifier systems that flagged or defunded proposals at the National Science Foundation (NSF) and major arts agencies based on key terms, such as “diversity,” “equity,” and “misinformation.” Over 10,000 NSF grants were flagged in a single review for referencing DEI-related language, with hundreds terminated after the agency’s leadership was directed to align awards with new political priorities.
-                <br> <br>The same shift swept through arts funding: agencies like the NEA were stripped of staff and compelled to terminate awards for projects seen as “out of step” with administration policies, including those involving LGBTQ or gender-nonconforming themes. Executive orders explicitly barred support for programs “promoting gender ideology.”
+                {Pu(re}viewed) was built in response to the expansion of AI-based censorship and algorithmic enforcement of political orthodoxy within public funding bodies. In 2025, the Department of Government Efficiency (DOGE) introduced classifier systems that flagged or defunded proposals at the National Science Foundation (NSF) and major arts agencies based on key terms, such as "diversity," "equity," and "misinformation." Over 10,000 NSF grants were flagged in a single review for referencing DEI-related language, with hundreds terminated after the agency's leadership was directed to align awards with new political priorities.
+                <br> <br>The same shift swept through arts funding: agencies like the NEA were stripped of staff and compelled to terminate awards for projects seen as "out of step" with administration policies, including those involving LGBTQ or gender-nonconforming themes. Executive orders explicitly barred support for programs "promoting gender ideology."
                 <br> <br>{Pu(re}viewed) is an intervention—a method to adapt, obscure, and safeguard research and creative proposals in the presence of automated ideological screening, and to assert the right to communicate beyond the boundaries drawn by algorithmic or bureaucratic censors.
             </div>
         </div>
         <div class="qa-item">
             <div class="question">Who can use it? <span class="black-bar"></span></div>
             <div class="answer">
-                Researchers. Scholars. Cultural workers. Artists. Curators. Grant writers. Humans. Anyone who creates critical work but depends on platforms or institutions influenced by algorithmic moderation and government scrutiny. Whether you’re applying for a federal grant or just trying to publish, {pu(re}viewed) helps you stay visible without being seen.
+                Researchers. Scholars. Cultural workers. Artists. Curators. Grant writers. Humans. Anyone who creates critical work but depends on platforms or institutions influenced by algorithmic moderation and government scrutiny. Whether you're applying for a federal grant or just trying to publish, {pu(re}viewed) helps you stay visible without being seen.
             </div>
         </div>
         <div class="qa-item">
             <div class="question">In the process of making... <span class="black-bar"></span></div>
             <div class="answer">
-                Ambiguity is deliberately encoded into the tools we already use. When asked “sensitive questions” the answers our publicly available AI tools provide become deliberately ambiguous, noncommittal, and algorithmically neutered.
-                <br> <br>This is not a bug. It’s a feature. It’s the flattening of criticality, the smoothing of dissent. {Pu(re}viewed) is a tool that doesn’t fix that problem. It weaponizes it.           
+                Ambiguity is deliberately encoded into the tools we already use. When asked "sensitive questions" the answers our publicly available AI tools provide become deliberately ambiguous, noncommittal, and algorithmically neutered.
+                <br> <br>This is not a bug. It's a feature. It's the flattening of criticality, the smoothing of dissent. {Pu(re}viewed) is a tool that doesn't fix that problem. It weaponizes it.           
             </div>
         </div>
     </div>
@@ -105,5 +105,4 @@
     <script src="script.js"></script>
     <script src="bouncer.js"></script>
 </body>
-</html> 
 </html> 
