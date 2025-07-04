@@ -60,23 +60,23 @@ header h1 {
 }
 
 #context-input {
-    background-color: black;
-    color: white;
-    border: none;
+    background-color: #fafafa;
+    color: black;
+    border: 2px solid #ddd;
     padding: 8px 12px;
     font-size: 1.4em;
-    border-radius: 2px;
+    border-radius: 8px;
     min-width: 150px;
     font-family: inherit; /* Use body font */
 }
 
 #context-input:focus {
     outline: none;
-    box-shadow: 0 0 0 3px #ccc;
+    border-color: #333;
 }
 
 #context-input::placeholder {
-    color: #ccc;
+    color: #999;
 }
 
 /* Main content layout */

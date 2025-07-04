@@ -27,12 +27,12 @@
     <div class="controls-section">
       <div class="control-row">
         <label class="slider-label styled">{Ambiguity}</label>
-        <input type="range" id="ambiguity-slider" min="0" max="10" value="0" />
+        <input type="range" id="ambiguity-slider" min="0" max="10" value="5" />
       </div>
 
       <div class="control-row">
         <label class="slider-label">{N.o..i.s...e}</label>
-        <input type="range" id="noise-slider" min="0" max="10" value="10" />
+        <input type="range" id="noise-slider" min="0" max="10" value="3" />
       </div>
 
       <div class="control-row virus-row">
@@ -52,7 +52,7 @@
 
   <div class="right-section">
     <div class="output-section">
-      <textarea id="output-text" readonly placeholder="Final result here"></textarea>
+      <textarea id="output-text" readonly placeholder="Sanitized result here"></textarea>
     </div>
 
     <div class="modification-section">
@@ -75,7 +75,7 @@
         <div class="qa-item">
             <div class="question">How does it work? <span class="black-bar"></span></div>
             <div class="answer">
-                Users submit their original writing and specify the context of where it will be submitted. The tool then offers three adjustable parameters: <span class="highlighted">ambiguity</span>, which alters language to obscure sensitive concepts according to context; <span class="highlighted">noise</span>, which inserts strategically aligned content to mask the underlying “signal”; and <span class="highlighted">virus</span>, when toggled on, inserts prompt injection string deep within the text where human eyes won’t see to bypass automated LLM reviewers. The user is then given a perfectly acceptable “sanitized” version of their writing.
+                Users submit their original writing and specify the context of where it will be submitted. The tool then offers three adjustable parameters: <span class="highlighted">ambiguity</span>, which alters language to obscure sensitive concepts according to context; <span class="highlighted">noise</span>, which inserts strategically aligned content to mask the underlying "signal"; and <span class="highlighted">virus</span>, when toggled on, inserts prompt injection string deep within the text where human eyes won't see to bypass automated LLM reviewers. The user is then given a perfectly acceptable "sanitized" version of their writing.
             </div>
         </div>
         <div class="qa-item">
