@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "build": "echo 'Static site - no build needed'",
     "vercel-dev": "vercel dev",
     "deploy": "vercel --prod"
   },
