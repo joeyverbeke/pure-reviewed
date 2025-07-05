@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const speed = 200;
 
     let lastTime = null;
+    let hasBounced = false; // Track if we've already bounced this frame
 
     function changeImage() {
         currentImageIndex = (currentImageIndex + 1) % bouncingImages.length;
@@ -39,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgWidth = bounceImg.offsetWidth;
         const imgHeight = bounceImg.offsetHeight;
 
+        // Reset bounce flag for this frame
+        hasBounced = false;
+
         // Move based on direction and speed
         x += dx * speed * deltaTime;
         y += dy * speed * deltaTime;
@@ -47,13 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (x <= 0 || x + imgWidth >= screenWidth) {
             dx = -dx;
             x = Math.max(0, Math.min(screenWidth - imgWidth, x)); // clamp position
-            changeImage();
+            if (!hasBounced) {
+                changeImage();
+                hasBounced = true;
+            }
         }
 
         if (y <= 0 || y + imgHeight >= screenHeight) {
             dy = -dy;
             y = Math.max(0, Math.min(screenHeight - imgHeight, y)); // clamp position
-            changeImage();
+            if (!hasBounced) {
+                changeImage();
+                hasBounced = true;
+            }
         }
 
         bounceImg.style.left = `${x}px`;
