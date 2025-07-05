@@ -1,12 +1,10 @@
 {
   "functions": {
     "api/sanitize.js": {
-      "maxDuration": 30,
-      "runtime": "nodejs18.x"
+      "maxDuration": 30
     },
     "api/health.js": {
-      "maxDuration": 5,
-      "runtime": "nodejs18.x"
+      "maxDuration": 5
     }
   },
   "headers": [
