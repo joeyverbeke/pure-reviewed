@@ -1,3 +1,5 @@
+//wonks is a squanks
+
 document.addEventListener('DOMContentLoaded', () => {
     const bouncingImages = ['/img1.png', '/img2.png']; // Your images
     let currentImageIndex = 0;
