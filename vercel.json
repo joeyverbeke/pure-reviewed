@@ -1,10 +1,12 @@
 {
   "functions": {
     "api/sanitize.js": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "runtime": "nodejs18.x"
     },
     "api/health.js": {
-      "maxDuration": 5
+      "maxDuration": 5,
+      "runtime": "nodejs18.x"
     }
   },
   "headers": [
@@ -21,6 +23,16 @@
     {
       "source": "/",
       "destination": "/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 } 
