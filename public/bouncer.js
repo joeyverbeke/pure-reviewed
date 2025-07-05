@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const bouncingImages = ['/public/img1.png', '/public/img2.png']; // Your images
+    const bouncingImages = ['/img1.png', '/img2.png']; // Your images
     let currentImageIndex = 0;
 
     const bounceImg = document.createElement('img');
