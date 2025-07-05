@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "A tool for refining grant applications to use neutral, objective language while maintaining scientific accuracy and impact",
-  "main": "index.html",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
+    "dev": "node local/server.js",
+    "start": "node local/server.js",
     "vercel-dev": "vercel dev",
     "deploy": "vercel --prod"
   },
