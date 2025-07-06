@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const speed = 200;
 
     let lastTime = null;
-    let hasBounced = false; // Track if we've already bounced this frame
+    let justBounced = false; // Prevent multiple bounces in rapid succession
 
     function changeImage() {
         currentImageIndex = (currentImageIndex + 1) % bouncingImages.length;
@@ -40,30 +40,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const imgWidth = bounceImg.offsetWidth;
         const imgHeight = bounceImg.offsetHeight;
 
-        // Reset bounce flag for this frame
-        hasBounced = false;
-
         // Move based on direction and speed
-        x += dx * speed * deltaTime;
-        y += dy * speed * deltaTime;
+        const newX = x + dx * speed * deltaTime;
+        const newY = y + dy * speed * deltaTime;
 
-        // Bounce off edges
-        if (x <= 0 || x + imgWidth >= screenWidth) {
-            dx = -dx;
-            x = Math.max(0, Math.min(screenWidth - imgWidth, x)); // clamp position
-            if (!hasBounced) {
-                changeImage();
-                hasBounced = true;
-            }
+        // Check for bounces and handle them
+        let bounced = false;
+
+        // Check horizontal bounds
+        if (newX <= 0) {
+            x = 0;
+            dx = Math.abs(dx); // Ensure positive direction
+            bounced = true;
+        } else if (newX + imgWidth >= screenWidth) {
+            x = screenWidth - imgWidth;
+            dx = -Math.abs(dx); // Ensure negative direction
+            bounced = true;
+        } else {
+            x = newX;
         }
 
-        if (y <= 0 || y + imgHeight >= screenHeight) {
-            dy = -dy;
-            y = Math.max(0, Math.min(screenHeight - imgHeight, y)); // clamp position
-            if (!hasBounced) {
-                changeImage();
-                hasBounced = true;
-            }
+        // Check vertical bounds
+        if (newY <= 0) {
+            y = 0;
+            dy = Math.abs(dy); // Ensure positive direction
+            bounced = true;
+        } else if (newY + imgHeight >= screenHeight) {
+            y = screenHeight - imgHeight;
+            dy = -Math.abs(dy); // Ensure negative direction
+            bounced = true;
+        } else {
+            y = newY;
+        }
+
+        // Change image only once per bounce event
+        if (bounced && !justBounced) {
+            changeImage();
+            justBounced = true;
+        } else if (!bounced) {
+            justBounced = false;
         }
 
         bounceImg.style.left = `${x}px`;
@@ -72,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animateBounce);
     }
 
-    bounceImg.onload = () => {
-        requestAnimationFrame(animateBounce);
-    };
+    // Start animation immediately, don't wait for image load
+    requestAnimationFrame(animateBounce);
 });
